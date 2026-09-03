@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Team Rizal - Move & Groove V3</title>
+<style>
+:root{--bg:#07111f;--card:#102039;--line:#29405f;--text:#f7fbff;--muted:#9fb0c7;--accent:#55d6ff;--good:#55e08a;--bad:#ff6b7a}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(145deg,#07111f,#101b2e);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--text);min-height:100vh}.wrap{width:min(900px,100%);margin:auto;padding:18px}.head{display:flex;justify-content:space-between;gap:12px;align-items:center}.brand{font-size:21px;font-weight:950}.sub{font-size:12px;color:var(--muted)}.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0}.tab{min-height:48px;border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--text);font-weight:850;cursor:pointer}.tab.on{background:var(--accent);color:#04101a;border-color:transparent}.panel{background:rgba(16,32,57,.96);border:1px solid var(--line);border-radius:22px;padding:18px;margin:12px 0}.hero{min-height:400px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}.icon{font-size:92px;line-height:1;margin-bottom:12px}.move{font-size:clamp(38px,8vw,78px);font-weight:950;line-height:1.05}.hint{color:var(--muted);margin-top:10px}.timer{font-size:30px;font-weight:950;margin-top:18px}.bar{width:min(650px,100%);height:12px;background:#172941;border-radius:99px;overflow:hidden;margin-top:12px}.bar i{display:block;height:100%;width:100%;background:var(--accent)}.btn{width:100%;min-height:50px;border:1px solid var(--line);border-radius:14px;background:#172b47;color:var(--text);font-weight:850;font-size:16px;padding:12px;cursor:pointer;margin-top:10px}.btn.primary{background:var(--accent);color:#04101a;border:0}.btn.good{background:var(--good);color:#04130a;border:0}.btn:disabled{opacity:.45;cursor:not-allowed}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.stat{border:1px solid var(--line);border-radius:15px;padding:13px;text-align:center;background:#0c1a2e}.stat b{font-size:26px}.small{font-size:12px;color:var(--muted);line-height:1.5}.center{text-align:center}.hidden{display:none!important}.rank{display:grid;grid-template-columns:46px 1fr auto;gap:8px;padding:10px 2px;border-bottom:1px solid var(--line)}.rank:last-child{border-bottom:0}.ok{color:var(--good)}.bad{color:var(--bad)}input{width:100%;min-height:48px;border:1px solid var(--line);border-radius:12px;background:#091629;color:var(--text);padding:10px 12px;font-size:16px}label{font-size:13px;color:var(--muted);display:block;margin:10px 0 6px}
+@media(max-width:560px){.statgrid{grid-template-columns:1fr 1fr}.hero{min-height:330px}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header class="head"><div><div class="brand">🕺 TEAM RIZAL — MOVE & GROOVE</div><div class="sub">Basic Call Handling • 3-Minute Motion Game</div></div><div class="sub">V3 TEST</div></header>
+
+<div class="tabs">
+<button class="tab on" id="hostTab" type="button">🖥️ HOST / PROJECTOR</button>
+<button class="tab" id="playerTab" type="button">📱 PLAYER</button>
+</div>
+
+<section id="hostView">
+<div class="panel">
+<div class="grid"><div><label>Room Code</label><input id="room" value="RIZAL01" maxlength="10"></div><div><label>Players (demo)</label><input id="playerCount" value="12" inputmode="numeric"></div></div>
+<button class="btn primary" id="hostStart" type="button">▶ START 3-MINUTE GAME</button>
+</div>
+<div class="panel hero">
+<div class="sub" id="hRound">READY</div><div class="icon" id="hIcon">🎵</div><div class="move" id="hMove">GET READY!</div><div class="hint" id="hHint">Ito ang projector/host visual.</div><div class="timer" id="hTimer">03:00</div><div class="bar"><i id="hBar"></i></div>
+</div>
+<div class="statgrid">
+<div class="stat"><div class="small">ROOM</div><b id="hRoom">RIZAL01</b></div><div class="stat"><div class="small">PLAYERS</div><b id="hPlayers">12</b></div><div class="stat"><div class="small">ROUND</div><b id="hNum">0</b></div>
+</div>
+<div class="panel"><h3>🏆 LIVE LEADERBOARD</h3><div id="board"></div></div>
+<div class="center small" id="hStatus">Host preview mode. Firebase will be added after testing.</div>
+</section>
+
+<section id="playerView" class="hidden">
+<div class="panel"><h2>📱 Join Move & Groove</h2><label>Nickname</label><input id="nick" placeholder="Enter nickname" maxlength="18"><label>Room Code</label><input id="joinRoom" value="RIZAL01" maxlength="10"><button class="btn primary" id="joinBtn" type="button">JOIN GAME</button><div class="small" id="joinStatus">Prototype player mode — no Firebase yet.</div></div>
+<div class="panel hero hidden" id="pGame"><div class="sub" id="pRound">WAITING</div><div class="icon" id="pIcon">🎵</div><div class="move" id="pMove">READY?</div><div class="hint" id="pHint">Hint: kapag Hands Up, itaas ang cellphone kasama ng kamay.</div><div class="timer" id="pTimer">—</div><div class="bar"><i id="pBar"></i></div></div>
+<div class="panel hidden" id="motionPanel"><button class="btn primary" id="motionBtn" type="button">🔓 ENABLE MOTION SENSOR</button><div class="small" id="motionStatus">Kailangan ito para sa actual movement detection.</div><button class="btn good" id="readyBtn" type="button" disabled>✅ READY</button></div>
+<div class="panel center"><div class="small">PLAYER SCORE</div><div style="font-size:42px;font-weight:950" id="pScore">0</div><div id="pResult"></div></div>
+</section>
+</main>
+<script>
+(()=>{"use strict";
+const $=id=>document.getElementById(id);
+const moves=[["LEFT","👈","TILT LEFT"],["RIGHT","👉","TILT RIGHT"],["UP","🙌","HANDS UP"],["SHAKE","📱","SHAKE PHONE"],["DOWN","👇","TILT DOWN"],["FREEZE","🧊","FREEZE"]];
+let hostRunning=false,hostStart=0,hostDeadline=0,hostRound=0,hostRaf=0,hostTimer=0;
+let playerRunning=false,current=null,pScore=0,pStart=0,pDeadline=0,pRaf=0,pTimer=0,listening=false,cooldown=0,lastAx=0,lastAy=0,lastAz=0,shake=0,stableSince=0;
+const GAME_MS=180000,ACTION_MS=6500;
+
+function switchView(player){
+ $("hostView").classList.toggle("hidden",player);$("playerView").classList.toggle("hidden",!player);
+ $("hostTab").classList.toggle("on",!player);$("playerTab").classList.toggle("on",player);
+}
+$("hostTab").addEventListener("click",()=>switchView(false));$("playerTab").addEventListener("click",()=>switchView(true));
+
+function renderBoard(){
+ const names=[["Maria",2860],["Juan",2710],["Ana",2650],["Pedro",2490],["Liza",2380]];
+ $("board").innerHTML=names.map((x,i)=>`<div class="rank"><b>${["🥇","🥈","🥉","4️⃣","5️⃣"][i]}</b><span>${x[0]}</span><strong>${x[1]}</strong></div>`).join("");
+}
+function hostNext(){
+ if(!hostRunning)return;
+ hostRound++;
+ const m=moves[Math.floor(Math.random()*moves.length)];
+ $("hRound").textContent=`ROUND ${hostRound}`;
+ $("hNum").textContent=hostRound;
+ $("hIcon").textContent=m[1];$("hMove").textContent=m[2];
+ $("hHint").textContent=m[0]==="UP"?"HANDS UP: itaas ang cellphone kasama ng kamay.":"Sundin ng players ang movement.";
+ clearTimeout(hostTimer);hostTimer=setTimeout(hostNext,ACTION_MS);
+}
+function hostTick(){
+ if(!hostRunning)return;
+ const left=Math.max(0,GAME_MS-(performance.now()-hostStart));
+ const s=Math.ceil(left/1000);$("hTimer").textContent=`${String(Math.floor(s/60)).padStart(2,"0")}:${String(s%60).padStart(2,"0")}`;
+ $("hBar").style.width=(left/GAME_MS*100)+"%";
+ if(left<=0){hostFinish();return}
+ hostRaf=requestAnimationFrame(hostTick);
+}
+function hostFinish(){
+ hostRunning=false;clearTimeout(hostTimer);cancelAnimationFrame(hostRaf);
+ $("hTimer").textContent="00:00";$("hBar").style.width="0%";$("hIcon").textContent="🏆";$("hMove").textContent="FINAL RESULTS";$("hHint").textContent="Sa Firebase version, dito lalabas ang tunay na live leaderboard."; $("hStatus").textContent="🎉 3-MINUTE GAME COMPLETE!";
+}
+$("hostStart").addEventListener("click",()=>{
+ clearTimeout(hostTimer);cancelAnimationFrame(hostRaf);hostRunning=true;hostStart=performance.now();hostRound=0;
+ $("hRoom").textContent=($("room").value||"RIZAL01").toUpperCase();$("hPlayers").textContent=Math.max(0,parseInt($("playerCount").value)||0);
+ $("hStatus").textContent="🔥 GAME LIVE — 3 minutes maximum";hostNext();hostTick();
+});
+
+function motion(e){
+ const a=e.accelerationIncludingGravity||e.acceleration;if(!a)return;
+ const ax=+a.x||0,ay=+a.y||0,az=+a.z||0;
+ const dx=ax-lastAx,dy=ay-lastAy,dz=az-lastAz;
+ shake=shake*.78+Math.sqrt(dx*dx+dy*dy+dz*dz);
+ lastAx=ax;lastAy=ay;lastAz=az;
+ const stable=Math.abs(ax)<1.7&&Math.abs(ay)<1.7&&Math.abs(az-9.8)<2.4;
+ if(stable){if(!stableSince)stableSince=Date.now()}else stableSince=0;
+ if(!playerRunning||!current||Date.now()<cooldown)return;
+ let hit=false;
+ if(current[0]==="LEFT"&&ax<-3.5)hit=true;
+ if(current[0]==="RIGHT"&&ax>3.5)hit=true;
+ if(current[0]==="UP"&&ay>6)hit=true;
+ if(current[0]==="DOWN"&&ay<-2)hit=true;
+ if(current[0]==="SHAKE"&&shake>9)hit=true;
+ if(current[0]==="FREEZE"&&stableSince&&Date.now()-stableSince>450)hit=true;
+ if(hit)playerWin();
+}
+async function enableMotion(){
+ try{
+  if(!("DeviceMotionEvent"in window))throw Error();
+  if(typeof DeviceMotionEvent.requestPermission==="function"){const p=await DeviceMotionEvent.requestPermission();if(p!=="granted")throw Error();}
+  window.addEventListener("devicemotion",motion,{passive:true});listening=true;
+  $("motionBtn").disabled=true;$("motionBtn").textContent="✅ MOTION ENABLED";$("readyBtn").disabled=false;
+  $("motionStatus").textContent="Motion sensor enabled. Tap READY.";
+ }catch(e){$("motionStatus").textContent="❌ Permission denied/not supported. Tap again and Allow."}
+}
+$("motionBtn").addEventListener("click",enableMotion);
+$("joinBtn").addEventListener("click",()=>{
+ const n=($("nick").value||"PLAYER").trim();const r=($("joinRoom").value||"RIZAL01").trim().toUpperCase();
+ $("joinStatus").textContent=`Joined room ${r} as ${n}. Enable motion then tap READY.`;
+ $("motionPanel").classList.remove("hidden");$("pGame").classList.remove("hidden");
+});
+$("readyBtn").addEventListener("click",()=>{
+ if(!listening)return;
+ $("readyBtn").disabled=true;$("readyBtn").textContent="🟢 READY — WAITING FOR HOST";$("joinStatus").textContent="Ready! Sa multiplayer version, synced ito sa Host.";
+});
+function playerNext(){
+ current=moves[Math.floor(Math.random()*moves.length)];
+ $("pRound").textContent="ACTION";$("pIcon").textContent=current[1];$("pMove").textContent=current[2];
+ $("pHint").textContent=current[0]==="UP"?"Itaas ang cellphone kasama ng kamay.":"Gawin ang galaw bago maubos ang oras.";
+ pStart=performance.now();pDeadline=pStart+ACTION_MS;cooldown=Date.now()+400;shake=0;stableSince=0;pLoop();
+}
+function pLoop(){
+ if(!playerRunning)return;const left=Math.max(0,pDeadline-performance.now());
+ $("pTimer").textContent=(left/1000).toFixed(1)+"s";$("pBar").style.width=(left/ACTION_MS*100)+"%";
+ if(left<=0){playerMiss();return}pRaf=requestAnimationFrame(pLoop);
+}
+function playerWin(){
+ if(!playerRunning)return;playerRunning=false;cancelAnimationFrame(pRaf);
+ const reaction=Math.max(1,Math.round(performance.now()-pStart)),pts=Math.max(30,Math.round(400-reaction/5));pScore+=pts;$("pScore").textContent=pScore;
+ $("pResult").innerHTML=`<span class="ok">✅ PERFECT +${pts} • ${reaction} ms</span>`;
+ pTimer=setTimeout(()=>{playerRunning=true;$("pResult").textContent="";playerNext()},600);
+}
+function playerMiss(){
+ if(!playerRunning)return;playerRunning=false;cancelAnimationFrame(pRaf);pScore=Math.max(0,pScore-50);$("pScore").textContent=pScore;
+ $("pResult").innerHTML='<span class="bad">⏱️ MISS -50</span>';
+ pTimer=setTimeout(()=>{playerRunning=true;$("pResult").textContent="";playerNext()},600);
+}
+renderBoard();
+})();
+</script>
+</body>
+</html>
