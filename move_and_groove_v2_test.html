@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Team Rizal Move & Groove V2</title>
+<style>
+:root{--bg:#07111f;--card:#102039;--line:#29405f;--text:#f7fbff;--muted:#9fb0c7;--accent:#55d6ff;--good:#55e08a;--bad:#ff6b7a}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(145deg,#07111f,#101b2e);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--text);min-height:100vh}.wrap{width:min(760px,100%);margin:auto;padding:18px}.head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:14px}.brand{font-weight:900;font-size:20px}.sub{color:var(--muted);font-size:12px}.score{text-align:right}.score b{font-size:30px}.card{background:rgba(16,32,57,.96);border:1px solid var(--line);border-radius:22px;padding:20px;margin:12px 0}.hero{text-align:center;min-height:360px;display:flex;flex-direction:column;justify-content:center;align-items:center}.icon{font-size:90px;line-height:1;margin-bottom:14px}.move{font-size:40px;font-weight:950}.hint{color:var(--muted);margin-top:8px}.timer{font-size:22px;font-weight:800;margin-top:16px}.bar{height:10px;background:#172941;border-radius:99px;overflow:hidden;margin-top:12px;width:min(520px,100%)}.bar i{display:block;height:100%;width:0;background:var(--accent)}.btn{width:100%;min-height:50px;border:1px solid var(--line);border-radius:14px;background:#172b47;color:var(--text);font-weight:800;font-size:16px;padding:12px;cursor:pointer;margin-top:10px}.btn.primary{background:var(--accent);color:#04101a;border:0}.btn:disabled{opacity:.45;cursor:not-allowed}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.status{text-align:center;font-weight:750;min-height:24px}.small{font-size:12px;color:var(--muted);line-height:1.5}.hidden{display:none!important}.pill{display:inline-block;padding:5px 9px;border-radius:999px;background:#172941;color:var(--muted);font-size:12px}.result{font-size:20px;font-weight:900;margin-top:12px}.ok{color:var(--good)}.bad{color:var(--bad)}.preview{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:12px}.preview span{padding:8px 12px;border:1px solid var(--line);border-radius:12px;background:#0b182b;font-size:13px}
+@media(max-width:520px){.move{font-size:30px}.hero{min-height:320px}.row{grid-template-columns:1fr}.icon{font-size:74px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<div class="head">
+ <div><div class="brand">🕺 TEAM RIZAL</div><div class="sub">MOVE & GROOVE V2 • Basic Call Handling</div></div>
+ <div class="score"><div class="sub">SCORE</div><b id="score">0</b></div>
+</div>
+
+<section class="card" id="setup">
+ <h2>💃 Move & Groove</h2>
+ <p>Phone-motion dance challenge. Gawin ang galaw na ipinapakita. Para sa <b>HANDS UP</b>, itaas ang cellphone kasama ng kamay.</p>
+ <button class="btn primary" id="permissionBtn">🔓 ENABLE MOTION SENSOR</button>
+ <div class="small" id="permissionStatus">Hindi pa naka-enable ang motion sensor.</div>
+ <button class="btn" id="startBtn" disabled>▶ START GAME</button>
+ <div class="preview">
+  <span>👈 LEFT</span><span>👉 RIGHT</span><span>🙌 HANDS UP</span><span>📱 SHAKE</span><span>👇 DOWN</span><span>🧊 FREEZE</span>
+ </div>
+</section>
+
+<section class="card hero hidden" id="game">
+ <div class="pill" id="round">ROUND 1 / 10</div>
+ <div class="icon" id="icon">🎵</div>
+ <div class="move" id="move">READY?</div>
+ <div class="hint" id="hint">Ihanda ang cellphone.</div>
+ <div class="timer" id="timer">—</div>
+ <div class="bar"><i id="bar"></i></div>
+</section>
+
+<section class="card">
+ <div class="status" id="status">Enable motion sensor para magsimula.</div>
+ <div class="result" id="result"></div>
+ <div class="row">
+  <button class="btn hidden" id="testBtn">🧪 TEST / SCORE MOVE</button>
+  <button class="btn hidden" id="resetBtn">↻ RESET</button>
+ </div>
+ <p class="small" id="support"></p>
+</section>
+</main>
+
+<script>
+(()=>{"use strict";
+const $=id=>document.getElementById(id);
+const scoreEl=$("score"),setup=$("setup"),game=$("game"),permissionBtn=$("permissionBtn"),startBtn=$("startBtn"),permissionStatus=$("permissionStatus"),roundEl=$("round"),icon=$("icon"),moveEl=$("move"),hint=$("hint"),timer=$("timer"),bar=$("bar"),status=$("status"),result=$("result"),testBtn=$("testBtn"),resetBtn=$("resetBtn"),support=$("support");
+
+const MOVES=[
+ ["LEFT","👈","TILT LEFT"],
+ ["RIGHT","👉","TILT RIGHT"],
+ ["UP","🙌","HANDS UP"],
+ ["SHAKE","📱","SHAKE PHONE"],
+ ["DOWN","👇","TILT DOWN"],
+ ["FREEZE","🧊","FREEZE"]
+];
+
+let score=0,round=0,current=null,active=false,listening=false;
+let startTime=0,deadline=0,lastAx=0,lastAy=0,lastAz=0,shakeEnergy=0,stableSince=0;
+let raf=0,timeout=0,cooldown=0;
+const TOTAL=10,WINDOW=2800;
+
+function setScore(){scoreEl.textContent=String(score)}
+function clean(){clearTimeout(timeout);cancelAnimationFrame(raf);raf=0}
+
+function motion(e){
+ const a=e.accelerationIncludingGravity||e.acceleration;if(!a)return;
+ const ax=+a.x||0,ay=+a.y||0,az=+a.z||0;
+ const dx=ax-lastAx,dy=ay-lastAy,dz=az-lastAz;
+ const delta=Math.sqrt(dx*dx+dy*dy+dz*dz);
+ shakeEnergy=shakeEnergy*.78+delta;
+ lastAx=ax;lastAy=ay;lastAz=az;
+
+ const stable=Math.abs(ax)<1.7&&Math.abs(ay)<1.7&&Math.abs(az-9.8)<2.4;
+ if(stable){if(!stableSince)stableSince=Date.now()}else stableSince=0;
+
+ if(!active||!current||Date.now()<cooldown)return;
+
+ let hit=false;
+ if(current[0]==="LEFT"&&ax<-3.5)hit=true;
+ if(current[0]==="RIGHT"&&ax>3.5)hit=true;
+ if(current[0]==="UP"&&ay>6.0)hit=true;
+ if(current[0]==="DOWN"&&ay<-2.0)hit=true;
+ if(current[0]==="SHAKE"&&shakeEnergy>9)hit=true;
+ if(current[0]==="FREEZE"&&stableSince&&Date.now()-stableSince>450)hit=true;
+
+ if(hit)win();
+}
+
+async function enable(){
+ try{
+  if(!("DeviceMotionEvent"in window))throw Error("unsupported");
+  if(typeof DeviceMotionEvent.requestPermission==="function"){
+   const p=await DeviceMotionEvent.requestPermission();
+   if(p!=="granted")throw Error("denied");
+  }
+  window.addEventListener("devicemotion",motion,{passive:true});
+  listening=true;
+  permissionStatus.textContent="✅ Motion sensor enabled.";
+  permissionBtn.disabled=true;permissionBtn.textContent="✅ MOTION ENABLED";
+  startBtn.disabled=false;
+  status.textContent="Ready! Pindutin ang START.";
+  testBtn.classList.remove("hidden");resetBtn.classList.remove("hidden");
+  support.textContent="Prototype calibration: kapag may movement na sobrang hirap o sobrang sensitibo, sasabihin mo at ia-adjust natin.";
+ }catch(e){
+  permissionStatus.textContent="❌ Hindi na-enable. I-tap ulit at piliing Allow.";
+  support.textContent="Gamitin ang modern Safari/Chrome sa phone at HTTPS.";
+ }
+}
+
+function start(){
+ if(!listening)return;
+ clean();score=0;round=0;setScore();active=true;
+ setup.classList.add("hidden");game.classList.remove("hidden");
+ status.textContent="🔥 GO! Sundin ang galaw!";
+ next();
+}
+
+function next(){
+ clean();
+ if(round>=TOTAL){finish();return}
+ round++;current=MOVES[Math.floor(Math.random()*MOVES.length)];
+ roundEl.textContent=`ROUND ${round} / ${TOTAL}`;
+ icon.textContent=current[1];moveEl.textContent=current[2];
+ hint.textContent=current[0]==="UP"?"Itaas ang cellphone kasama ng kamay.":"Gawin ang movement bago maubos ang oras.";
+ startTime=performance.now();deadline=startTime+WINDOW;
+ cooldown=Date.now()+400;shakeEnergy=0;stableSince=0;
+ timer.textContent=(WINDOW/1000).toFixed(1)+"s";bar.style.width="100%";loop();
+}
+
+function loop(){
+ if(!active)return;
+ const left=Math.max(0,deadline-performance.now());
+ timer.textContent=(left/1000).toFixed(1)+"s";bar.style.width=(left/WINDOW*100)+"%";
+ if(left<=0){miss();return}
+ raf=requestAnimationFrame(loop);
+}
+
+function win(){
+ if(!active)return;
+ active=false;cancelAnimationFrame(raf);raf=0;
+ const reaction=Math.max(1,Math.round(performance.now()-startTime));
+ const points=Math.max(30,Math.round(400-reaction/5));
+ score+=points;setScore();
+ status.innerHTML=`<span class="ok">✅ PERFECT! +${points}</span>`;
+ result.textContent=`Reaction: ${reaction} ms`;
+ timeout=setTimeout(()=>{active=true;result.textContent="";next()},650);
+}
+
+function miss(){
+ if(!active)return;
+ active=false;clean();score=Math.max(0,score-50);setScore();
+ status.innerHTML='<span class="bad">⏱️ MISS! -50</span>';
+ result.textContent="Hindi na-detect ang tamang movement.";
+ timeout=setTimeout(()=>{active=true;result.textContent="";next()},650);
+}
+
+function finish(){
+ active=false;clean();
+ icon.textContent="🏆";moveEl.textContent="FINISH!";
+ hint.textContent="Final Score";timer.textContent=score+" points";bar.style.width="100%";
+ status.textContent="🎉 GAME COMPLETE!";result.textContent="Final Score: "+score;
+ testBtn.classList.add("hidden");
+}
+
+function reset(){
+ active=false;clean();score=0;round=0;current=null;setScore();
+ setup.classList.remove("hidden");game.classList.add("hidden");
+ icon.textContent="🎵";moveEl.textContent="READY?";hint.textContent="Ihanda ang cellphone.";
+ timer.textContent="—";bar.style.width="0";result.textContent="";
+ status.textContent=listening?"Ready! Pindutin ang START.":"Enable motion sensor para magsimula.";
+}
+
+permissionBtn.addEventListener("click",enable);
+startBtn.addEventListener("click",start);
+resetBtn.addEventListener("click",reset);
+testBtn.addEventListener("click",()=>{if(active)win();else status.textContent="Start the game first."});
+support.textContent="Recommended test: iPhone/Android over HTTPS. iOS requires Motion permission.";
+})();
+</script>
+</body>
+</html>
