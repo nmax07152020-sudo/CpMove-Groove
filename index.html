@@ -3,180 +3,285 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+
 <title>Team Rizal - Move & Groove</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
 
 body{
   margin:0;
   min-height:100vh;
-  background:#090d18;
-  color:white;
+  background:#080d18;
+  color:#fff;
   font-family:Arial,Helvetica,sans-serif;
 }
 
-.wrap{
-  max-width:700px;
+.container{
+  width:100%;
+  max-width:720px;
   margin:auto;
-  padding:18px;
+  padding:15px;
 }
 
 .card{
   background:#121a2b;
-  border:1px solid #26334d;
-  border-radius:22px;
-  padding:22px;
-  box-shadow:0 15px 45px #0007;
+  border:1px solid #293653;
+  border-radius:24px;
+  padding:20px;
+  box-shadow:0 15px 45px rgba(0,0,0,.4);
 }
 
-.brand{text-align:center}
-
-.brand h1{
-  margin:5px 0;
-  font-size:30px;
-}
-
-.brand p{
-  margin:5px 0;
-  color:#aebbd4;
+.header{
+  text-align:center;
 }
 
 .badge{
   display:inline-block;
-  padding:6px 10px;
-  border-radius:999px;
+  padding:7px 12px;
+  border-radius:50px;
   background:#263b69;
-  color:#dbe7ff;
-  font-size:12px;
+  font-size:11px;
   font-weight:bold;
 }
 
-.stats{
-  display:flex;
-  gap:10px;
-  margin:18px 0;
+.header h1{
+  margin:10px 0 3px;
+  font-size:31px;
 }
 
-.stat{
-  flex:1;
-  background:#0c1220;
-  border-radius:15px;
-  padding:12px;
-  text-align:center;
-}
-
-.stat b{
-  display:block;
-  font-size:24px;
-}
-
-.stat span{
-  font-size:11px;
-  color:#9eabc2;
-}
-
-.timer{
-  font-size:48px;
-  font-weight:900;
-  text-align:center;
-  margin:8px 0;
-}
-
-.command{
-  min-height:230px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  background:#0b1020;
-  border-radius:20px;
-  border:2px solid #2b3b59;
-  margin:14px 0;
-}
-
-.emoji{
-  font-size:76px;
-  line-height:1;
-}
-
-.cmd{
-  font-size:34px;
-  font-weight:900;
-  margin-top:12px;
-}
-
-.hint{
+.header p{
+  margin:5px 0 15px;
   color:#aebbd4;
-  margin-top:8px;
+}
+
+.screen{
+  display:none;
+}
+
+.screen.active{
+  display:block;
+}
+
+.info{
+  background:#0b1120;
+  border-radius:17px;
+  padding:18px;
+  line-height:1.55;
+  color:#cbd5e8;
+  font-size:14px;
 }
 
 button{
   width:100%;
   border:0;
-  border-radius:15px;
-  padding:16px;
-  margin-top:10px;
+  border-radius:16px;
+  padding:17px;
+  margin-top:11px;
   font-size:17px;
-  font-weight:800;
+  font-weight:900;
   cursor:pointer;
 }
 
-.primary{
-  background:#21d07a;
-  color:#06130c;
-}
-
-.secondary{
-  background:#263756;
-  color:white;
-}
-
 button:disabled{
-  opacity:.45;
+  opacity:.35;
+}
+
+.green{
+  background:#20d47b;
+  color:#06150d;
+}
+
+.blue{
+  background:#3478f6;
+  color:#fff;
+}
+
+.gray{
+  background:#263653;
+  color:#fff;
 }
 
 .status{
   text-align:center;
-  min-height:24px;
+  min-height:25px;
+  margin-top:14px;
+  font-weight:bold;
+}
+
+.sensorBox{
+  margin-top:15px;
+  padding:17px;
+  background:#080d18;
+  border-radius:17px;
+}
+
+.sensorGrid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+}
+
+.sensorValue{
+  background:#121a2b;
+  border-radius:12px;
+  padding:10px;
+  text-align:center;
+}
+
+.sensorValue span{
+  display:block;
+  color:#91a0ba;
+  font-size:11px;
+}
+
+.sensorValue b{
+  font-size:21px;
+}
+
+.sensorMotion{
+  text-align:center;
   margin-top:12px;
-  color:#b8c6dd;
+  font-size:20px;
+  font-weight:bold;
+}
+
+.ready{
+  text-align:center;
+  padding:25px 5px;
+}
+
+.readyIcon{
+  font-size:70px;
+}
+
+.ready h2{
+  font-size:30px;
+  margin:8px 0;
+}
+
+.gameTimer{
+  text-align:center;
+  font-size:52px;
+  font-weight:900;
+  margin-top:5px;
 }
 
 .progress{
+  width:100%;
   height:9px;
-  background:#263047;
-  border-radius:99px;
+  background:#29344c;
+  border-radius:50px;
   overflow:hidden;
+  margin:8px 0 14px;
+}
+
+.progressBar{
+  width:0%;
+  height:100%;
+  background:#20d47b;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:9px;
+}
+
+.stat{
+  background:#080d18;
+  border-radius:14px;
+  text-align:center;
+  padding:11px 5px;
+}
+
+.stat b{
+  display:block;
+  font-size:25px;
+}
+
+.stat span{
+  font-size:10px;
+  color:#91a0ba;
+}
+
+.command{
+  min-height:285px;
+  margin-top:15px;
+  background:#080d18;
+  border:2px solid #2b3a58;
+  border-radius:22px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+
+.commandEmoji{
+  font-size:82px;
+}
+
+.commandName{
+  font-size:36px;
+  font-weight:900;
   margin-top:10px;
 }
 
-.bar{
-  height:100%;
-  width:0;
-  background:#21d07a;
-  transition:width .1s;
+.commandHint{
+  color:#aebbd4;
+  margin-top:9px;
+  font-size:15px;
 }
 
-.instructions{
-  line-height:1.5;
-  color:#c6d0e2;
-  font-size:14px;
+.gameStatus{
+  text-align:center;
+  margin-top:13px;
+  min-height:25px;
+  color:#d5def0;
+  font-weight:bold;
+}
+
+.round{
+  text-align:center;
+  color:#92a1bc;
+  margin-top:7px;
+  font-size:13px;
 }
 
 .result{
   text-align:center;
-  display:none;
 }
 
-.result .big{
-  font-size:58px;
+.finalScore{
+  font-size:65px;
   font-weight:900;
+  margin:10px 0;
+}
+
+.resultBox{
+  background:#080d18;
+  border-radius:17px;
+  padding:15px;
+  margin-top:15px;
+}
+
+.resultRow{
+  display:flex;
+  justify-content:space-between;
+  padding:9px;
+  border-bottom:1px solid #26334c;
+}
+
+.resultRow:last-child{
+  border-bottom:0;
 }
 
 .flash{
-  animation:flash .35s;
+  animation:flash .3s;
 }
 
 @keyframes flash{
@@ -185,16 +290,66 @@ button:disabled{
     filter:brightness(1.7);
   }
 }
+
+.countdown{
+  position:fixed;
+  inset:0;
+  background:rgba(5,9,18,.94);
+  z-index:99;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  text-align:center;
+}
+
+.countdown.show{
+  display:flex;
+}
+
+.countdownNumber{
+  font-size:110px;
+  font-weight:900;
+}
+
+.countdownText{
+  font-size:22px;
+  font-weight:bold;
+}
+
+@media(max-width:430px){
+
+.header h1{
+  font-size:27px;
+}
+
+.command{
+  min-height:260px;
+}
+
+.commandEmoji{
+  font-size:70px;
+}
+
+.commandName{
+  font-size:29px;
+}
+
+.gameTimer{
+  font-size:45px;
+}
+
+}
 </style>
 </head>
 
 <body>
 
-<div class="wrap">
+<div class="container">
 
 <div class="card">
 
-<div class="brand">
+<div class="header">
 
 <span class="badge">
 TEAM RIZAL • BASIC CALL HANDLING
@@ -207,301 +362,476 @@ TEAM RIZAL • BASIC CALL HANDLING
 </div>
 
 
-<!-- SETUP -->
+<!-- SENSOR SCREEN -->
 
-<div id="setup">
+<div
+id="sensorScreen"
+class="screen active">
 
-<div class="instructions">
+<div class="info">
 
-<b>How to play:</b><br><br>
+<b>📱 FIRST: CHECK YOUR PHONE SENSOR</b>
 
-1. Hawakan nang maayos ang phone.<br>
-2. Tap <b>ENABLE MOTION SENSOR</b>.<br>
-3. Tap <b>START 2-MINUTE CHALLENGE</b>.<br>
-4. Sundan ang malaking movement sa screen.<br>
-5. Igalaw ang phone kasama ng iyong kamay.<br>
-6. Kapag 🧊 FREEZE, huwag igalaw ang phone.
+<br><br>
+
+Hold your phone securely.
+
+<br>
+
+Tap <b>ENABLE MOTION SENSOR</b>.
+
+<br>
+
+Then move your phone.
+
+<br><br>
+
+Kapag nagbago ang X/Y/Z values at naging
+<b style="color:#20d47b">MOTION DETECTED</b>,
+automatic na magiging available ang game.
 
 </div>
 
+
 <button
-class="primary"
-id="motionBtn">
+id="enableButton"
+class="green">
+
 📱 ENABLE MOTION SENSOR
+
 </button>
 
+
 <button
-class="primary"
-id="startBtn"
+id="startButton"
+class="blue"
 disabled>
-🔥 START 2-MINUTE CHALLENGE
+
+🔥 START 2-MINUTE ZUMBA
+
 </button>
 
-<button
-class="secondary"
-id="testBtn">
-🧪 TEST SENSOR
-</button>
 
 <div
-class="status"
-id="status">
+id="sensorStatus"
+class="status">
+
 Sensor not enabled.
-</div>
 
 </div>
 
 
-<!-- GAME -->
+<div class="sensorBox">
 
-<div id="game" style="display:none">
+<h3 style="text-align:center">
+LIVE SENSOR
+</h3>
+
+<div class="sensorGrid">
+
+<div class="sensorValue">
+<span>X</span>
+<b id="xValue">0.00</b>
+</div>
+
+<div class="sensorValue">
+<span>Y</span>
+<b id="yValue">0.00</b>
+</div>
+
+<div class="sensorValue">
+<span>Z</span>
+<b id="zValue">0.00</b>
+</div>
+
+</div>
 
 <div
-class="timer"
-id="timer">
+class="sensorMotion"
+id="motionValue">
+
+Motion: 0.00
+
+</div>
+
+<div
+id="sensorDetected"
+class="status">
+
+WAITING FOR MOVEMENT
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- GAME SCREEN -->
+
+<div
+id="gameScreen"
+class="screen">
+
+<div
+id="gameTimer"
+class="gameTimer">
+
 2:00
+
 </div>
 
 <div class="progress">
+
 <div
-class="bar"
-id="bar">
+id="progressBar"
+class="progressBar">
+
 </div>
+
 </div>
 
 
 <div class="stats">
 
 <div class="stat">
-<b id="score">0</b>
+
+<b id="scoreValue">0</b>
+
 <span>SCORE</span>
+
 </div>
 
 <div class="stat">
-<b id="combo">0</b>
+
+<b id="comboValue">0</b>
+
 <span>COMBO</span>
+
 </div>
 
 <div class="stat">
-<b id="hits">0</b>
+
+<b id="hitsValue">0</b>
+
 <span>HITS</span>
+
 </div>
 
 </div>
 
 
 <div
-class="command"
-id="command">
+id="commandBox"
+class="command">
 
 <div
-class="emoji"
-id="emoji">
+id="commandEmoji"
+class="commandEmoji">
+
 🕺
+
 </div>
 
 <div
-class="cmd"
-id="cmd">
+id="commandName"
+class="commandName">
+
 GET READY!
+
 </div>
 
 <div
-class="hint"
-id="hint">
-Let's move!
+id="commandHint"
+class="commandHint">
+
+Follow the movement!
+
 </div>
 
 </div>
 
 
 <div
-class="status"
-id="gameStatus">
-Get ready...
-</div>
+id="roundValue"
+class="round">
+
+Round 0
 
 </div>
 
-
-<!-- RESULT -->
 
 <div
-class="result"
-id="result">
+id="gameStatus"
+class="gameStatus">
 
-<div class="badge">
+Get ready!
+
+</div>
+
+</div>
+
+
+<!-- RESULT SCREEN -->
+
+<div
+id="resultScreen"
+class="screen">
+
+<div class="result">
+
+<span class="badge">
 CHALLENGE COMPLETE
-</div>
+</span>
 
-<h2>🎉 GREAT JOB!</h2>
+<h1>🎉 AMAZING!</h1>
+
+<p>Your Final Score</p>
 
 <div
-class="big"
-id="finalScore">
+id="finalScore"
+class="finalScore">
+
 0
+
 </div>
 
-<p>POINTS</p>
+<div class="resultBox">
 
-<p>
-🔥 Best Combo:
+<div class="resultRow">
+<span>🔥 Best Combo</span>
 <b id="finalCombo">0</b>
-</p>
+</div>
 
-<p>
-✅ Successful Moves:
+<div class="resultRow">
+<span>✅ Successful Moves</span>
 <b id="finalHits">0</b>
-</p>
+</div>
+
+<div class="resultRow">
+<span>⏱️ Duration</span>
+<b>2:00</b>
+</div>
+
+</div>
+
 
 <button
-class="primary"
-id="againBtn">
+id="playAgain"
+class="green">
+
 🔄 PLAY AGAIN
+
 </button>
 
 </div>
 
 </div>
+
+</div>
+
+</div>
+
+
+<!-- COUNTDOWN -->
+
+<div
+id="countdown"
+class="countdown">
+
+<div
+id="countdownNumber"
+class="countdownNumber">
+
+3
+
+</div>
+
+<div
+class="countdownText">
+
+GET READY!
+
+</div>
+
 </div>
 
 
 <script>
 
+/* =========================
+   VARIABLES
+========================= */
+
 let sensorEnabled=false;
-let running=false;
+let motionDetected=false;
+let gameRunning=false;
 
 let startTime=0;
-let elapsed=0;
+let gameTimer=null;
+let commandTimer=null;
 
 let score=0;
 let combo=0;
 let bestCombo=0;
 let hits=0;
+let round=0;
 
-let current=null;
+let currentCommand=null;
+let lastHit=0;
+let lastMagnitude=9.8;
 
-let lastAction=0;
-
-let actionTimer=null;
-let gameTimer=null;
-
-let motionHandler=null;
-
-let freezeStableStart=0;
+let freezeStart=0;
 
 
-/* MOVEMENTS */
+/* =========================
+   ELEMENTS
+========================= */
 
-const moves=[
+const sensorScreen=
+document.getElementById("sensorScreen");
+
+const gameScreen=
+document.getElementById("gameScreen");
+
+const resultScreen=
+document.getElementById("resultScreen");
+
+const enableButton=
+document.getElementById("enableButton");
+
+const startButton=
+document.getElementById("startButton");
+
+const sensorStatus=
+document.getElementById("sensorStatus");
+
+const sensorDetected=
+document.getElementById("sensorDetected");
+
+const xValue=
+document.getElementById("xValue");
+
+const yValue=
+document.getElementById("yValue");
+
+const zValue=
+document.getElementById("zValue");
+
+const motionValue=
+document.getElementById("motionValue");
+
+const countdown=
+document.getElementById("countdown");
+
+const countdownNumber=
+document.getElementById("countdownNumber");
+
+
+/* =========================
+   MOVEMENTS
+========================= */
+
+const commands=[
 
 {
- e:"👈",
- n:"STEP LEFT",
- h:"Move your phone to the LEFT",
- t:"move"
+ emoji:"👈",
+ name:"STEP LEFT",
+ hint:"Move the phone LEFT",
+ type:"left"
 },
 
 {
- e:"👉",
- n:"STEP RIGHT",
- h:"Move your phone to the RIGHT",
- t:"move"
+ emoji:"👉",
+ name:"STEP RIGHT",
+ hint:"Move the phone RIGHT",
+ type:"right"
 },
 
 {
- e:"🙌",
- n:"HANDS UP",
- h:"Raise the phone UP",
- t:"up"
+ emoji:"🙌",
+ name:"HANDS UP",
+ hint:"Raise the phone UP",
+ type:"up"
 },
 
 {
- e:"🥊",
- n:"PUNCH LEFT",
- h:"Move phone LEFT",
- t:"left"
+ emoji:"🥊",
+ name:"PUNCH LEFT",
+ hint:"Move the phone LEFT",
+ type:"left"
 },
 
 {
- e:"🥊",
- n:"PUNCH RIGHT",
- h:"Move phone RIGHT",
- t:"right"
+ emoji:"🥊",
+ name:"PUNCH RIGHT",
+ hint:"Move the phone RIGHT",
+ type:"right"
 },
 
 {
- e:"🔄",
- n:"TWIST",
- h:"Twist your phone",
- t:"move"
+ emoji:"🔄",
+ name:"TWIST",
+ hint:"Move the phone side-to-side",
+ type:"move"
 },
 
 {
- e:"📳",
- n:"SHAKE!",
- h:"Shake the phone quickly",
- t:"shake"
+ emoji:"📳",
+ name:"SHAKE!",
+ hint:"Shake the phone quickly",
+ type:"shake"
 },
 
 {
- e:"⬆️",
- n:"KNEE UP",
- h:"Lift your hand/phone UP",
- t:"up"
+ emoji:"⬆️",
+ name:"KNEE UP",
+ hint:"Lift the phone UP",
+ type:"up"
 },
 
 {
- e:"⚡",
- n:"FAST MOVE",
- h:"Move the phone quickly",
- t:"shake"
+ emoji:"⚡",
+ name:"FAST MOVE",
+ hint:"Move the phone quickly",
+ type:"shake"
 },
 
 {
- e:"🧊",
- n:"FREEZE!",
- h:"STOP - keep phone very still",
- t:"freeze"
+ emoji:"🧊",
+ name:"FREEZE!",
+ hint:"STOP moving the phone",
+ type:"freeze"
 }
 
 ];
 
 
-function $(id){
-return document.getElementById(id);
-}
+/* =========================
+   ENABLE SENSOR
+========================= */
 
+async function enableSensor(){
 
-function setStatus(text){
-$("status").textContent=text;
-}
-
-
-function setGameStatus(text){
-$("gameStatus").textContent=text;
-}
-
-
-/* ENABLE SENSOR */
-
-async function enableMotion(){
+sensorStatus.textContent=
+"Requesting permission...";
 
 try{
 
+/* iPhone / iPad */
+
 if(
-typeof DeviceMotionEvent!=="undefined" &&
-typeof DeviceMotionEvent.requestPermission==="function"
+typeof DeviceMotionEvent !== "undefined" &&
+typeof DeviceMotionEvent.requestPermission === "function"
 ){
 
 const permission=
 await DeviceMotionEvent.requestPermission();
 
-if(permission!=="granted"){
+if(permission !== "granted"){
 
-setStatus(
-"⚠️ Motion permission was not granted."
-);
+sensorStatus.textContent=
+"❌ Motion permission denied.";
 
 return;
 
@@ -509,88 +839,185 @@ return;
 
 }
 
-motionHandler=handleMotion;
+
+/* Add sensor listener */
 
 window.addEventListener(
 "devicemotion",
-motionHandler
+handleMotion,
+true
 );
 
 sensorEnabled=true;
 
-$("startBtn").disabled=false;
+sensorStatus.textContent=
+"✅ SENSOR ENABLED";
 
-setStatus(
-"✅ Motion sensor enabled! Ready!"
-);
+enableButton.textContent=
+"✅ SENSOR ENABLED";
+
+enableButton.disabled=true;
+
+sensorStatus.style.color=
+"#20d47b";
 
 }catch(error){
 
-setStatus(
-"⚠️ Sensor error: "+error.message
-);
+sensorStatus.textContent=
+"❌ SENSOR ERROR: "+error.message;
 
 }
 
 }
 
 
-$("motionBtn").onclick=enableMotion;
-
-
-/* MOTION */
-
-function magnitude(a){
-
-if(!a)return 0;
-
-const x=a.x||0;
-const y=a.y||0;
-const z=a.z||0;
-
-return Math.sqrt(
-x*x+y*y+z*z
-);
-
-}
-
+/* =========================
+   MOTION HANDLER
+========================= */
 
 function handleMotion(event){
 
-const a=
+const data=
 event.accelerationIncludingGravity ||
 event.acceleration;
 
-const mag=magnitude(a);
-
-const now=performance.now();
+if(!data)return;
 
 
-if(!running || !current)return;
+const x=
+Number(data.x || 0);
 
-if(now-lastAction<350)return;
+const y=
+Number(data.y || 0);
+
+const z=
+Number(data.z || 0);
+
+
+xValue.textContent=
+x.toFixed(2);
+
+yValue.textContent=
+y.toFixed(2);
+
+zValue.textContent=
+z.toFixed(2);
+
+
+/*
+Motion magnitude
+*/
+
+const magnitude=
+Math.sqrt(
+x*x+
+y*y+
+z*z
+);
+
+
+motionValue.textContent=
+"Motion: "+
+magnitude.toFixed(2);
+
+
+/*
+Sensor confirmation
+
+Normal gravity is approximately 9.8.
+We look for a significant change.
+*/
+
+const change=
+Math.abs(
+magnitude-lastMagnitude
+);
+
+
+if(change>1.0){
+
+motionDetected=true;
+
+sensorDetected.textContent=
+"🟢 MOTION DETECTED!";
+
+sensorDetected.style.color=
+"#20d47b";
+
+
+if(sensorEnabled){
+
+startButton.disabled=false;
+
+}
+
+}
+
+
+lastMagnitude=magnitude;
+
+
+/*
+Only process game movement
+*/
+
+if(!gameRunning)return;
+
+processGameMotion(
+x,
+y,
+z,
+magnitude
+);
+
+}
+
+
+/* =========================
+   GAME MOTION
+========================= */
+
+function processGameMotion(
+x,
+y,
+z,
+magnitude
+){
+
+if(!currentCommand)return;
+
+const now=
+performance.now();
+
+
+if(now-lastHit<400)return;
 
 
 /* FREEZE */
 
-if(current.t==="freeze"){
-
-if(mag<1.4){
-
-if(!freezeStableStart)
-freezeStableStart=now;
+if(currentCommand.type==="freeze"){
 
 if(
-now-freezeStableStart>850
+Math.abs(magnitude-9.8)<0.7
 ){
 
-hitMove();
+if(!freezeStart){
+
+freezeStart=now;
+
+}
+
+if(
+now-freezeStart>700
+){
+
+registerHit();
 
 }
 
 }else{
 
-freezeStableStart=0;
+freezeStart=0;
 
 }
 
@@ -598,273 +1025,376 @@ return;
 
 }
 
-freezeStableStart=0;
 
+freezeStart=0;
 
-/* NORMAL MOVES */
 
 let success=false;
 
 
-if(current.t==="move"){
+/* GENERAL MOVEMENT */
 
-success=mag>2.2;
-
-}
-
-
-if(current.t==="shake"){
-
-success=mag>4.0;
-
-}
-
-
-if(current.t==="up"){
+if(
+currentCommand.type==="move"
+){
 
 success=
-(
-a &&
-Math.abs(a.y||0)>2.0
-)
-||
-mag>3.2;
+Math.abs(magnitude-9.8)>1.4;
 
 }
 
 
-if(current.t==="left"){
+/* SHAKE */
+
+if(
+currentCommand.type==="shake"
+){
 
 success=
-(
-a &&
-(a.x||0)<-2.2
-)
-||
-mag>3.2;
+Math.abs(magnitude-9.8)>2.5;
 
 }
 
 
-if(current.t==="right"){
+/* UP */
+
+if(
+currentCommand.type==="up"
+){
 
 success=
-(
-a &&
-(a.x||0)>2.2
-)
-||
-mag>3.2;
+Math.abs(y)>11 ||
+Math.abs(magnitude-9.8)>2.0;
+
+}
+
+
+/* LEFT */
+
+if(
+currentCommand.type==="left"
+){
+
+success=
+x<-2 ||
+Math.abs(magnitude-9.8)>2.5;
+
+}
+
+
+/* RIGHT */
+
+if(
+currentCommand.type==="right"
+){
+
+success=
+x>2 ||
+Math.abs(magnitude-9.8)>2.5;
 
 }
 
 
 if(success){
 
-hitMove();
+registerHit();
 
 }
 
 }
 
 
-/* SUCCESS */
+/* =========================
+   REGISTER HIT
+========================= */
 
-function hitMove(){
+function registerHit(){
 
-if(
-!running ||
-!current ||
-performance.now()-lastAction<350
-)return;
+if(!gameRunning)return;
 
+const now=
+performance.now();
 
-lastAction=performance.now();
+if(now-lastHit<400)return;
+
+lastHit=now;
 
 hits++;
 
 combo++;
 
-bestCombo=
-Math.max(bestCombo,combo);
+if(combo>bestCombo){
+
+bestCombo=combo;
+
+}
 
 
-const reaction=
-Math.max(
-1,
-Math.round(
-performance.now()-current.started
-)
-);
-
-
-const timing=
-Math.max(
-0,
-3000-reaction
-);
-
+/*
+Scoring
+*/
 
 score+=
 100+
-Math.round(timing/20)+
-Math.min(combo*10,200);
+(combo*10);
 
 
-$("score").textContent=score;
+document.getElementById(
+"scoreValue"
+).textContent=score;
 
-$("combo").textContent=combo;
+document.getElementById(
+"comboValue"
+).textContent=combo;
 
-$("hits").textContent=hits;
-
-
-$("command")
-.classList.remove("flash");
-
-void $("command").offsetWidth;
-
-$("command")
-.classList.add("flash");
+document.getElementById(
+"hitsValue"
+).textContent=hits;
 
 
-setGameStatus(
-"🔥 NICE! "+reaction+" ms • KEEP GOING!"
-);
+document.getElementById(
+"commandBox"
+).classList.remove("flash");
+
+void document.getElementById(
+"commandBox"
+).offsetWidth;
+
+document.getElementById(
+"commandBox"
+).classList.add("flash");
 
 
-nextMove();
+document.getElementById(
+"gameStatus"
+).textContent=
+"🔥 NICE! KEEP GOING!";
+
+
+nextCommand();
 
 }
 
 
-/* MISS */
+/* =========================
+   MISS
+========================= */
 
-function missMove(){
+function missCommand(){
 
-if(!running)return;
+if(!gameRunning)return;
 
 combo=0;
 
-$("combo").textContent=0;
+document.getElementById(
+"comboValue"
+).textContent=0;
 
-setGameStatus(
-"Miss! Keep moving 💪"
-);
+document.getElementById(
+"gameStatus"
+).textContent=
+"MISS! KEEP MOVING 💪";
 
-nextMove();
+nextCommand();
 
 }
 
 
-/* NEXT COMMAND */
+/* =========================
+   NEXT COMMAND
+========================= */
 
-function nextMove(){
+function nextCommand(){
 
-clearTimeout(actionTimer);
+clearTimeout(commandTimer);
 
-current=
-moves[
+if(!gameRunning)return;
+
+
+round++;
+
+
+currentCommand=
+commands[
 Math.floor(
-Math.random()*moves.length
+Math.random()*commands.length
 )
 ];
 
-current.started=
-performance.now();
+
+document.getElementById(
+"commandEmoji"
+).textContent=
+currentCommand.emoji;
+
+document.getElementById(
+"commandName"
+).textContent=
+currentCommand.name;
+
+document.getElementById(
+"commandHint"
+).textContent=
+currentCommand.hint;
+
+document.getElementById(
+"roundValue"
+).textContent=
+"Round "+round;
 
 
-$("emoji").textContent=
-current.e;
-
-$("cmd").textContent=
-current.n;
-
-$("hint").textContent=
-current.h;
-
+const elapsed=
+performance.now()-startTime;
 
 const remaining=
-120000-
-(performance.now()-startTime);
+120000-elapsed;
 
 
-let interval;
+/*
+Game gets faster
+*/
 
+let delay=4300;
+
+if(remaining<90000){
+
+delay=3900;
+
+}
+
+if(remaining<60000){
+
+delay=3400;
+
+}
 
 if(remaining<30000){
 
-interval=2600;
-
-}else if(remaining<60000){
-
-interval=3300;
-
-}else{
-
-interval=4100;
+delay=2700;
 
 }
 
 
-actionTimer=
+commandTimer=
 setTimeout(
-missMove,
-interval
+missCommand,
+delay
 );
 
 }
 
 
-/* START */
+/* =========================
+   COUNTDOWN
+========================= */
+
+function startCountdown(){
+
+countdown.classList.add("show");
+
+let number=3;
+
+countdownNumber.textContent=
+number;
+
+
+const timer=
+setInterval(()=>{
+
+number--;
+
+if(number>0){
+
+countdownNumber.textContent=
+number;
+
+}else{
+
+clearInterval(timer);
+
+countdownNumber.textContent=
+"GO!";
+
+setTimeout(()=>{
+
+countdown.classList.remove("show");
+
+startGame();
+
+},500);
+
+}
+
+},1000);
+
+}
+
+
+/* =========================
+   START GAME
+========================= */
 
 function startGame(){
 
 if(!sensorEnabled){
 
-setStatus(
-"Enable motion sensor first."
-);
+sensorStatus.textContent=
+"❌ Enable the sensor first.";
 
 return;
 
 }
 
 
-$("setup").style.display="none";
+if(!motionDetected){
 
-$("result").style.display="none";
+sensorStatus.textContent=
+"❌ Move the phone first so we can confirm the sensor.";
 
-$("game").style.display="block";
+return;
+
+}
+
+
+sensorScreen.classList.remove("active");
+
+resultScreen.classList.remove("active");
+
+gameScreen.classList.add("active");
 
 
 score=0;
 combo=0;
 bestCombo=0;
 hits=0;
+round=0;
 
-elapsed=0;
-
-running=true;
+gameRunning=true;
 
 startTime=
 performance.now();
 
 
-$("score").textContent=0;
-$("combo").textContent=0;
-$("hits").textContent=0;
+document.getElementById(
+"scoreValue"
+).textContent=0;
 
-$("timer").textContent="2:00";
+document.getElementById(
+"comboValue"
+).textContent=0;
 
-$("bar").style.width="0%";
+document.getElementById(
+"hitsValue"
+).textContent=0;
 
 
-setGameStatus(
-"🔥 GO! Follow the moves!"
-);
+document.getElementById(
+"gameStatus"
+).textContent=
+"🔥 GO! FOLLOW THE MOVES!";
 
 
-nextMove();
+nextCommand();
 
 
 gameTimer=
@@ -876,15 +1406,19 @@ updateGame,
 }
 
 
-/* TIMER */
+/* =========================
+   GAME TIMER
+========================= */
 
 function updateGame(){
 
-elapsed=
+if(!gameRunning)return;
+
+
+const elapsed=
 performance.now()-startTime;
 
-
-const remain=
+const remaining=
 Math.max(
 0,
 120000-elapsed
@@ -892,23 +1426,29 @@ Math.max(
 
 
 const seconds=
-Math.ceil(remain/1000);
+Math.ceil(
+remaining/1000
+);
 
 
-$("timer").textContent=
+document.getElementById(
+"gameTimer"
+).textContent=
 Math.floor(seconds/60)+
 ":"+
 String(seconds%60).padStart(2,"0");
 
 
-$("bar").style.width=
+document.getElementById(
+"progressBar"
+).style.width=
 Math.min(
 100,
 elapsed/1200
 )+"%";
 
 
-if(remain<=0){
+if(remaining<=0){
 
 finishGame();
 
@@ -917,90 +1457,147 @@ finishGame();
 }
 
 
-/* FINISH */
+/* =========================
+   FINISH
+========================= */
 
 function finishGame(){
 
-if(!running)return;
+if(!gameRunning)return;
 
-running=false;
+gameRunning=false;
 
 clearInterval(gameTimer);
 
-clearTimeout(actionTimer);
+clearTimeout(commandTimer);
 
-current=null;
-
-
-$("game").style.display="none";
-
-$("result").style.display="block";
+currentCommand=null;
 
 
-$("finalScore").textContent=
+gameScreen.classList.remove("active");
+
+resultScreen.classList.add("active");
+
+
+document.getElementById(
+"finalScore"
+).textContent=
 score;
 
-$("finalCombo").textContent=
+document.getElementById(
+"finalCombo"
+).textContent=
 bestCombo;
 
-$("finalHits").textContent=
+document.getElementById(
+"finalHits"
+).textContent=
 hits;
 
 }
 
 
-/* PLAY AGAIN */
+/* =========================
+   PLAY AGAIN
+========================= */
 
-$("againBtn").onclick=()=>{
+document.getElementById(
+"playAgain"
+).onclick=function(){
 
-$("result").style.display="none";
+resultScreen.classList.remove("active");
 
-$("setup").style.display="block";
+sensorScreen.classList.add("active");
 
-setStatus(
-"Ready for another test."
-);
+
+motionDetected=false;
+
+startButton.disabled=true;
+
+sensorDetected.textContent=
+"WAITING FOR MOVEMENT";
+
+sensorDetected.style.color=
+"white";
+
+sensorStatus.textContent=
+"Move the phone to confirm the sensor.";
 
 };
 
 
-/* TEST SENSOR */
+/* =========================
+   BUTTONS
+========================= */
 
-$("testBtn").onclick=()=>{
+enableButton.onclick=
+enableSensor;
+
+
+startButton.onclick=
+function(){
 
 if(!sensorEnabled){
 
-setStatus(
-"Tap ENABLE MOTION SENSOR first."
-);
+sensorStatus.textContent=
+"❌ Enable sensor first.";
 
 return;
 
 }
 
-setStatus(
-"✅ Sensor is working!"
-);
+
+if(!motionDetected){
+
+sensorStatus.textContent=
+"❌ Move the phone first.";
+
+return;
+
+}
+
+
+startCountdown();
 
 };
 
 
-/* CLEANUP */
+/* =========================
+   PREVENT SCREEN SLEEP
+========================= */
 
-window.addEventListener(
-"beforeunload",
+let wakeLock=null;
+
+async function keepScreenOn(){
+
+try{
+
+if("wakeLock" in navigator){
+
+wakeLock=
+await navigator.wakeLock.request("screen");
+
+}
+
+}catch(e){}
+
+}
+
+document.addEventListener(
+"visibilitychange",
 ()=>{
 
-if(motionHandler){
+if(
+document.visibilityState==="visible" &&
+gameRunning
+){
 
-window.removeEventListener(
-"devicemotion",
-motionHandler
-);
+keepScreenOn();
 
 }
 
 });
+
 
 </script>
 
