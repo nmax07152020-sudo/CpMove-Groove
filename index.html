@@ -3,129 +3,1996 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Team Rizal — Move & Groove V4</title>
+
+<title>Team Rizal — Move & Groove</title>
+
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:#07111f;color:#fff}
-.wrap{max-width:1100px;margin:auto;padding:18px}.brand{text-align:center}.brand h1{margin:4px 0;font-size:clamp(28px,5vw,52px)}.brand p{margin:4px;color:#a9bdd5}
-.tabs{display:flex;gap:8px;margin:18px 0}.tabs button,.btn{border:0;border-radius:14px;padding:13px 18px;font-weight:800;cursor:pointer}.tabs button{flex:1;background:#17263a;color:#bcd0e7}.tabs .on{background:#1e90ff;color:#fff}
-.panel{background:#0e1b2d;border:1px solid #263b55;border-radius:20px;padding:18px;margin-bottom:15px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.big{font-size:clamp(55px,12vw,120px);font-weight:900;text-align:center;line-height:1}.command{text-align:center;font-size:clamp(30px,7vw,75px);font-weight:900;padding:28px 8px}.timer{text-align:center;font-size:58px;font-weight:900}.code{font-size:42px;font-weight:900;letter-spacing:7px;text-align:center}.qr{display:block;margin:10px auto;max-width:240px;width:80%;background:#fff;padding:10px;border-radius:12px}
-input{width:100%;padding:14px;border-radius:12px;border:1px solid #38516f;background:#091526;color:#fff;font-size:18px;margin:5px 0 10px}.btn{background:#1e90ff;color:#fff;width:100%;margin-top:6px}.btn.green{background:#16a36a}.btn.red{background:#d9485f}.muted{color:#91a8c1}.hidden{display:none!important}.players{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}.player{background:#14263d;border-radius:12px;padding:10px}.score{font-size:25px;font-weight:900}.status{text-align:center;padding:10px;border-radius:12px;background:#14263d;margin:8px 0}.leader div{display:flex;justify-content:space-between;padding:9px;border-bottom:1px solid #24384f}.note{font-size:13px;color:#91a8c1}
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:#07111f;
+  color:#fff;
+}
+
+.wrap{
+  max-width:1100px;
+  margin:auto;
+  padding:18px;
+}
+
+.brand{text-align:center}
+
+.brand h1{
+  margin:4px 0;
+  font-size:clamp(28px,5vw,52px);
+}
+
+.brand p{
+  margin:4px;
+  color:#a9bdd5;
+}
+
+.tabs{
+  display:flex;
+  gap:8px;
+  margin:18px 0;
+}
+
+.tabs button,
+.btn{
+  border:0;
+  border-radius:14px;
+  padding:13px 18px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.tabs button{
+  flex:1;
+  background:#17263a;
+  color:#bcd0e7;
+}
+
+.tabs .on{
+  background:#1e90ff;
+  color:#fff;
+}
+
+.panel{
+  background:#0e1b2d;
+  border:1px solid #263b55;
+  border-radius:20px;
+  padding:18px;
+  margin-bottom:15px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+}
+
+.command{
+  text-align:center;
+  font-size:clamp(30px,7vw,75px);
+  font-weight:900;
+  padding:28px 8px;
+}
+
+.timer{
+  text-align:center;
+  font-size:58px;
+  font-weight:900;
+}
+
+.code{
+  font-size:42px;
+  font-weight:900;
+  letter-spacing:7px;
+  text-align:center;
+}
+
+.qr{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin:12px auto;
+  max-width:250px;
+  min-height:240px;
+  background:#fff;
+  padding:12px;
+  border-radius:14px;
+}
+
+.qr canvas,
+.qr img{
+  max-width:100%;
+  height:auto;
+}
+
+input{
+  width:100%;
+  padding:14px;
+  border-radius:12px;
+  border:1px solid #38516f;
+  background:#091526;
+  color:#fff;
+  font-size:18px;
+  margin:5px 0 10px;
+}
+
+.btn{
+  background:#1e90ff;
+  color:#fff;
+  width:100%;
+  margin-top:6px;
+}
+
+.btn.green{
+  background:#16a36a;
+}
+
+.btn.red{
+  background:#d9485f;
+}
+
+.muted{
+  color:#91a8c1;
+}
+
+.hidden{
+  display:none!important;
+}
+
+.players{
+  display:grid;
+  grid-template-columns:
+    repeat(auto-fit,minmax(150px,1fr));
+  gap:8px;
+}
+
+.player{
+  background:#14263d;
+  border-radius:12px;
+  padding:10px;
+}
+
+.score{
+  font-size:25px;
+  font-weight:900;
+}
+
+.status{
+  text-align:center;
+  padding:10px;
+  border-radius:12px;
+  background:#14263d;
+  margin:8px 0;
+}
+
+.leader div{
+  display:flex;
+  justify-content:space-between;
+  padding:9px;
+  border-bottom:1px solid #24384f;
+}
+
+.note{
+  font-size:13px;
+  color:#91a8c1;
+  text-align:center;
+}
+
+@media(max-width:700px){
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .tabs button{
+    font-size:13px;
+  }
+}
 </style>
+
+<!-- QR CODE LIBRARY -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
 </head>
+
 <body>
+
 <div class="wrap">
- <div class="brand"><h1>🕺 MOVE & GROOVE</h1><p>Team Rizal • Basic Call Handling</p><p>Patient Navigation and Referral Unit CALABARZON • Sept. 2–4, 2026</p></div>
- <div class="tabs"><button id="hostTab" class="on" onclick="show('host')">🖥️ HOST / PROJECTOR</button><button id="playerTab" onclick="show('player')">📱 PLAYER</button></div>
 
- <section id="host">
-  <div class="grid">
-   <div class="panel">
-    <h2>Host Control</h2>
-    <label>Room Code</label><input id="roomInput" maxlength="8" value="RIZAL01">
-    <button class="btn" onclick="createRoom()">CREATE / UPDATE ROOM</button>
-    <div id="hostStatus" class="status">Create a room to show the QR.</div>
-    <div class="code" id="hostCode">—</div>
-    <img id="qr" class="qr hidden" alt="Join QR">
-    <p class="note" style="text-align:center">Players scan this QR with their phone camera.</p>
-    <button class="btn green" onclick="startGame()">▶ START 3-MINUTE GAME</button>
-    <button class="btn red" onclick="resetRoom()">RESET ROOM</button>
-   </div>
-   <div class="panel">
-    <div class="timer" id="hostTimer">03:00</div>
-    <div class="command" id="hostCommand">WAITING</div>
-    <div class="status" id="hostRound">Waiting for players…</div>
-    <h3>LIVE LEADERBOARD</h3><div id="hostBoard" class="leader"><div><span>No players yet</span><b>0</b></div></div>
-   </div>
-  </div>
-  <div class="panel"><h3>PLAYERS (<span id="playerCount">0</span>)</h3><div id="hostPlayers" class="players"></div></div>
- </section>
+  <div class="brand">
+    <h1>🕺 MOVE & GROOVE</h1>
 
- <section id="player" class="hidden">
-  <div class="panel">
-   <h2>📱 Join Game</h2>
-   <label>Room Code</label><input id="joinRoom" maxlength="8" placeholder="RIZAL01">
-   <label>Nickname</label><input id="nick" maxlength="18" placeholder="Your nickname">
-   <button class="btn" onclick="joinGame()">JOIN ROOM</button>
-   <div id="playerStatus" class="status">Scan the Host QR or enter the room code.</div>
-   <button class="btn green" onclick="enableMotion()">📱 ENABLE MOTION SENSOR</button>
-   <button id="readyBtn" class="btn" onclick="ready()" disabled>READY</button>
+    <p>
+      Team Rizal • Basic Call Handling
+    </p>
+
+    <p>
+      Patient Navigation and Referral Unit CALABARZON
+      • Sept. 2–4, 2026
+    </p>
   </div>
-  <div class="panel">
-   <div class="timer" id="playerTimer">03:00</div>
-   <div class="command" id="playerCommand">WAITING</div>
-   <div class="score">Score: <span id="myScore">0</span></div>
-   <div class="status" id="motionStatus">Motion: not enabled</div>
+
+
+  <!-- TABS -->
+
+  <div class="tabs">
+
+    <button
+      id="hostTab"
+      class="on"
+      onclick="showMode('host')">
+
+      🖥️ HOST / PROJECTOR
+
+    </button>
+
+    <button
+      id="playerTab"
+      onclick="showMode('player')">
+
+      📱 PLAYER
+
+    </button>
+
   </div>
- </section>
+
+
+  <!-- ================= HOST ================= -->
+
+  <section id="host">
+
+    <div class="grid">
+
+      <div class="panel">
+
+        <h2>🖥️ Host Control</h2>
+
+        <label>Room Code</label>
+
+        <input
+          id="roomInput"
+          maxlength="8"
+          value="RIZAL01"
+          autocomplete="off"
+        >
+
+        <button
+          class="btn"
+          onclick="createRoom()">
+
+          CREATE / UPDATE ROOM
+
+        </button>
+
+
+        <div
+          id="hostStatus"
+          class="status">
+
+          Create a room to show the QR.
+
+        </div>
+
+
+        <div
+          id="hostCode"
+          class="code">
+
+          —
+
+        </div>
+
+
+        <div
+          id="qr"
+          class="qr hidden">
+
+        </div>
+
+
+        <p class="note">
+
+          📱 Scan this QR code using the
+          participant's cellphone camera.
+
+        </p>
+
+
+        <button
+          class="btn green"
+          onclick="startGame()">
+
+          ▶ START 3-MINUTE GAME
+
+        </button>
+
+
+        <button
+          class="btn red"
+          onclick="resetRoom()">
+
+          RESET ROOM
+
+        </button>
+
+      </div>
+
+
+      <!-- HOST GAME DISPLAY -->
+
+      <div class="panel">
+
+        <div
+          id="hostTimer"
+          class="timer">
+
+          03:00
+
+        </div>
+
+
+        <div
+          id="hostCommand"
+          class="command">
+
+          WAITING
+
+        </div>
+
+
+        <div
+          id="hostRound"
+          class="status">
+
+          Waiting for players…
+
+        </div>
+
+
+        <h3>
+          🏆 LIVE LEADERBOARD
+        </h3>
+
+
+        <div
+          id="hostBoard"
+          class="leader">
+
+          <div>
+            <span>No players yet</span>
+            <b>0</b>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- PLAYERS -->
+
+    <div class="panel">
+
+      <h3>
+        PLAYERS
+        (<span id="playerCount">0</span>)
+      </h3>
+
+      <div
+        id="hostPlayers"
+        class="players">
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- ================= PLAYER ================= -->
+
+  <section
+    id="player"
+    class="hidden">
+
+    <div class="panel">
+
+      <h2>📱 Join Game</h2>
+
+
+      <label>
+        Room Code
+      </label>
+
+      <input
+        id="joinRoom"
+        maxlength="8"
+        placeholder="RIZAL01"
+        autocomplete="off"
+      >
+
+
+      <label>
+        Nickname
+      </label>
+
+      <input
+        id="nick"
+        maxlength="18"
+        placeholder="Your nickname"
+        autocomplete="off"
+      >
+
+
+      <button
+        class="btn"
+        onclick="joinGame()">
+
+        JOIN ROOM
+
+      </button>
+
+
+      <div
+        id="playerStatus"
+        class="status">
+
+        Scan the Host QR
+        or enter the room code.
+
+      </div>
+
+
+      <button
+        class="btn green"
+        onclick="enableMotion()">
+
+        📱 ENABLE MOTION SENSOR
+
+      </button>
+
+
+      <button
+        id="readyBtn"
+        class="btn"
+        onclick="setReady()"
+        disabled>
+
+        READY
+
+      </button>
+
+    </div>
+
+
+    <!-- PLAYER GAME -->
+
+    <div class="panel">
+
+      <div
+        id="playerTimer"
+        class="timer">
+
+        03:00
+
+      </div>
+
+
+      <div
+        id="playerCommand"
+        class="command">
+
+        WAITING
+
+      </div>
+
+
+      <div class="score">
+
+        Score:
+        <span id="myScore">0</span>
+
+      </div>
+
+
+      <div
+        id="motionStatus"
+        class="status">
+
+        Motion: not enabled
+
+      </div>
+
+    </div>
+
+  </section>
+
 </div>
 
+
+
+<!-- ================= FIREBASE ================= -->
+
 <script type="module">
-import {initializeApp} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
-import {getDatabase,ref,set,update,onValue,onDisconnect,serverTimestamp,remove} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-database.js";
-import {getAuth,signInAnonymously} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
-const cfg={apiKey:"AIzaSyCoYod0-3wMFOwkkJa6RcVYLwm9eFA",authDomain:"tapfingers-cf42e.firebaseapp.com",databaseURL:"https://tapfingers-cf42e-default-rtdb.asia-southeast1.firebasedatabase.app",projectId:"tapfingers-cf42e",storageBucket:"tapfingers-cf42e.firebasestorage.app",messagingSenderId:"311013625466",appId:"1:311013625466:web:f82356a920c5b05f4e35c3"};
-const app=initializeApp(cfg),db=getDatabase(app),auth=getAuth(app);
-let uid=null,room="",isHost=false,motion=false,gameTimer=null,lastAction=0,lastHandled=-1;
-const $=id=>document.getElementById(id);
-const qs=new URLSearchParams(location.search);
-const moves=["👈 TILT LEFT","👉 TILT RIGHT","🙌 HANDS UP","📳 SHAKE PHONE","👇 TILT DOWN","🧊 FREEZE"];
-
-async function login(){if(uid)return; const c=await signInAnonymously(auth);uid=c.user.uid}
-window.show=m=>{$('host').classList.toggle('hidden',m!=='host');$('player').classList.toggle('hidden',m!=='player');$('hostTab').classList.toggle('on',m==='host');$('playerTab').classList.toggle('on',m==='player')};
-
-async function createRoom(){
- await login(); room=($('roomInput').value||'RIZAL01').trim().toUpperCase();
- await set(ref(db,'mgRooms/'+room),{hostUid:uid,phase:'waiting',action:-1,startAt:0,endAt:0,createdAt:serverTimestamp()});
- isHost=true;$('hostCode').textContent=room;
- const join=location.origin+location.pathname+'?room='+encodeURIComponent(room)+'&mode=player';
- $('qr').src='https://api.qrserver.com/v1/create-qr-code/?size=500x500&data='+encodeURIComponent(join);$('qr').classList.remove('hidden');
- listenHost();$('hostStatus').textContent='Room ready. Players can scan the QR.';
+import {
+  initializeApp
 }
-window.createRoom=createRoom;
+from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
-function listenHost(){onValue(ref(db,'mgRooms/'+room),snap=>{const r=snap.val()||{},p=r.players||{};let arr=Object.values(p).sort((a,b)=>(b.score||0)-(a.score||0));$('playerCount').textContent=arr.length;$('hostPlayers').innerHTML=arr.map(x=>'<div class="player"><b>'+esc(x.nick||'Player')+'</b><br><span class="muted">'+(x.ready?'READY':'WAITING')+'</span><br><span class="score">'+(x.score||0)+'</span></div>').join('');$('hostBoard').innerHTML=arr.map((x,i)=>'<div><span>#'+(i+1)+' '+esc(x.nick||'Player')+'</span><b>'+(x.score||0)+'</b></div>').join('')||'<div><span>No players yet</span><b>0</b></div>';renderState(r,'host')})}
 
-async function startGame(){if(!room){alert('Create the room first.');return}await update(ref(db,'mgRooms/'+room),{phase:'playing',startAt:serverTimestamp(),endAt:Date.now()+180000,action:0});}
-window.startGame=startGame;
-
-async function resetRoom(){if(room)await set(ref(db,'mgRooms/'+room),{hostUid:uid,phase:'waiting',action:-1,startAt:0,endAt:0});}
-window.resetRoom=resetRoom;
-
-function renderState(r,w){
- const playing=r.phase==='playing', ended=r.phase==='ended';
- if(playing){$('hostCommand').textContent=moves[(r.action||0)%moves.length];$('playerCommand').textContent=moves[(r.action||0)%moves.length]}else{$('hostCommand').textContent=ended?'🏆 RESULTS':'WAITING';$('playerCommand').textContent=ended?'🏆 FINISHED':'WAITING'}
- if(playing&&isHost) tickHost(r); if(playing&&!isHost) tickPlayer(r);
- if(r.phase==='ended'){$('hostTimer').textContent='00:00';$('playerTimer').textContent='00:00';}
+import {
+  getDatabase,
+  ref,
+  set,
+  update,
+  onValue,
+  onDisconnect,
+  serverTimestamp
 }
-function tickHost(r){
- clearInterval(gameTimer);gameTimer=setInterval(async()=>{let left=Math.max(0,r.endAt-Date.now());$('hostTimer').textContent=fmt(left);$('hostRound').textContent='MOVE '+((r.action||0)+1)+' • '+Math.ceil(left/1000)+'s left';if(left<=0){clearInterval(gameTimer);await update(ref(db,'mgRooms/'+room),{phase:'ended',action:-1})}},250);
- let elapsed=Math.max(0,Date.now()-(r.startAt||Date.now())),idx=Math.floor(elapsed/7500); if(idx!==(r.action||0)&&idx<24) update(ref(db,'mgRooms/'+room),{action:idx});
-}
-function tickPlayer(r){
- clearInterval(gameTimer);gameTimer=setInterval(()=>{let left=Math.max(0,r.endAt-Date.now());$('playerTimer').textContent=fmt(left);if(left<=0)clearInterval(gameTimer)},250);
-}
-function fmt(ms){let s=Math.ceil(ms/1000);return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
+from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-database.js";
 
-async function joinGame(){
- await login();room=($('joinRoom').value||qs.get('room')||'').trim().toUpperCase();let nick=($('nick').value||'Player').trim();if(!room)return alert('Enter room code.');
- const r=ref(db,'mgRooms/'+room+'/players/'+uid);await set(r,{nick,ready:false,score:0,online:true});onDisconnect(r).update({online:false});
- isHost=false;listenPlayer();$('playerStatus').textContent='Joined '+room+' as '+nick;$('readyBtn').disabled=false;
-}
-window.joinGame=joinGame;
-async function ready(){if(!room||!uid)return;await update(ref(db,'mgRooms/'+room+'/players/'+uid),{ready:true})}
-window.ready=ready;
-function listenPlayer(){onValue(ref(db,'mgRooms/'+room),snap=>{const r=snap.val();if(!r){$('playerStatus').textContent='Room not found.';return}renderState(r,'player');const me=(r.players||{})[uid];if(me){$('myScore').textContent=me.score||0;$('playerStatus').textContent=r.phase==='playing'?'GAME ON! Follow the movement on screen.':(r.phase==='ended'?'Game finished!':'Ready: '+(me.ready?'YES':'NO'))}})}
-async function enableMotion(){
- if(typeof DeviceMotionEvent!=='undefined'&&typeof DeviceMotionEvent.requestPermission==='function'){let p=await DeviceMotionEvent.requestPermission();if(p!=='granted')return alert('Motion permission denied.')}motion=true;$('motionStatus').textContent='Motion: enabled';window.addEventListener('devicemotion',detect,{passive:true});
-}
-window.enableMotion=enableMotion;
-function detect(e){if(!motion||!room||lastAction<0)return;let rlast=Date.now();let a=e.accelerationIncludingGravity||e.acceleration;if(!a)return;let x=a.x||0,y=a.y||0,z=a.z||0;let mag=Math.sqrt(x*x+y*y+z*z);let ok=mag>17||Math.abs(x)>8||Math.abs(y)>8;if(ok&&rlast-lastAction>500){lastAction=rlast;submitHit()}}
-async function submitHit(){let snap=await new Promise(res=>onValue(ref(db,'mgRooms/'+room),s=>res(s),{onlyOnce:true}));let r=snap.val();if(!r||r.phase!=='playing'||r.action===lastHandled)return;lastHandled=r.action;let reaction=Math.max(1,Date.now()-((r.startAt||Date.now())+(r.action||0)*7500));let points=Math.max(10,1000-Math.min(990,reaction));await update(ref(db,'mgRooms/'+room+'/players/'+uid),{score:(Number((r.players||{})[uid]?.score)||0)+points,lastReaction:reaction,lastAction:r.action})}
-function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 
-if(qs.get('mode')==='player'){show('player');if(qs.get('room'))$('joinRoom').value=qs.get('room')}
-else show('host');
+
+/* ============================================
+   EXISTING TAPFINGERS FIREBASE
+   ============================================ */
+
+const firebaseConfig = {
+
+  apiKey:
+  "AIzaSyCoYod-0wMFOwkkJa6RcVYLwm9eFA",
+
+  authDomain:
+  "tapfingers-cf42e.firebaseapp.com",
+
+  databaseURL:
+  "https://tapfingers-cf42e-default-rtdb.asia-southeast1.firebasedatabase.app",
+
+  projectId:
+  "tapfingers-cf42e",
+
+  storageBucket:
+  "tapfingers-cf42e.firebasestorage.app",
+
+  messagingSenderId:
+  "311013625466",
+
+  appId:
+  "1:311013625466:web:f82356a920c5b05f4e35c3"
+
+};
+
+
+const app =
+initializeApp(firebaseConfig);
+
+const db =
+getDatabase(app);
+
+
+
+/* ============================================
+   VARIABLES
+   ============================================ */
+
+let uid =
+localStorage.getItem("moveGrooveUID");
+
+
+if(!uid){
+
+  uid =
+  "player_" +
+  Math.random()
+  .toString(36)
+  .substring(2) +
+  Date.now()
+  .toString(36);
+
+  localStorage.setItem(
+    "moveGrooveUID",
+    uid
+  );
+
+}
+
+
+let room = "";
+
+let isHost = false;
+
+let motionEnabled = false;
+
+let gameInterval = null;
+
+let lastMotionTime = 0;
+
+let lastActionHandled = -1;
+
+
+
+const moves = [
+
+  "👈 TILT LEFT",
+
+  "👉 TILT RIGHT",
+
+  "🙌 HANDS UP",
+
+  "📳 SHAKE PHONE",
+
+  "👇 TILT DOWN",
+
+  "🧊 FREEZE"
+
+];
+
+
+
+const $ = id =>
+document.getElementById(id);
+
+
+
+/* ============================================
+   URL PARAMETERS
+   ============================================ */
+
+const params =
+new URLSearchParams(
+  window.location.search
+);
+
+
+
+/* ============================================
+   SWITCH MODE
+   ============================================ */
+
+window.showMode = function(mode){
+
+  $("host")
+  .classList
+  .toggle(
+    "hidden",
+    mode !== "host"
+  );
+
+
+  $("player")
+  .classList
+  .toggle(
+    "hidden",
+    mode !== "player"
+  );
+
+
+  $("hostTab")
+  .classList
+  .toggle(
+    "on",
+    mode === "host"
+  );
+
+
+  $("playerTab")
+  .classList
+  .toggle(
+    "on",
+    mode === "player"
+  );
+
+};
+
+
+
+/* ============================================
+   CREATE ROOM
+   ============================================ */
+
+window.createRoom = async function(){
+
+  try{
+
+    room =
+    (
+      $("roomInput").value ||
+      "RIZAL01"
+    )
+    .trim()
+    .toUpperCase();
+
+
+    if(!room){
+
+      alert(
+        "Please enter a Room Code."
+      );
+
+      return;
+
+    }
+
+
+    isHost = true;
+
+
+    await set(
+
+      ref(
+        db,
+        "moveGrooveRooms/" +
+        room
+      ),
+
+      {
+
+        hostUid:
+        uid,
+
+        phase:
+        "waiting",
+
+        action:
+        -1,
+
+        startAt:
+        0,
+
+        endAt:
+        0,
+
+        createdAt:
+        serverTimestamp(),
+
+        players:
+        {}
+
+      }
+
+    );
+
+
+    $("hostCode")
+    .textContent =
+    room;
+
+
+    /* ====================================
+       GENERATE QR
+       ==================================== */
+
+    const joinURL =
+      window.location.origin +
+      window.location.pathname +
+      "?room=" +
+      encodeURIComponent(room) +
+      "&mode=player";
+
+
+    $("qr").innerHTML = "";
+
+
+    new QRCode(
+
+      $("qr"),
+
+      {
+
+        text:
+        joinURL,
+
+        width:
+        220,
+
+        height:
+        220,
+
+        correctLevel:
+        QRCode.CorrectLevel.H
+
+      }
+
+    );
+
+
+    $("qr")
+    .classList
+    .remove("hidden");
+
+
+    $("hostStatus")
+    .textContent =
+    "✅ ROOM READY — Players can scan the QR.";
+
+
+    listenHost();
+
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+
+    $("hostStatus")
+    .textContent =
+    "❌ ERROR: " +
+    error.message;
+
+
+    alert(
+      "CREATE ROOM ERROR:\n\n" +
+      error.message
+    );
+
+  }
+
+};
+
+
+
+/* ============================================
+   HOST LISTENER
+   ============================================ */
+
+function listenHost(){
+
+  onValue(
+
+    ref(
+      db,
+      "moveGrooveRooms/" +
+      room
+    ),
+
+    snapshot => {
+
+      const data =
+      snapshot.val() || {};
+
+
+      const players =
+      data.players || {};
+
+
+      const list =
+      Object.values(players);
+
+
+      list.sort(
+        (a,b) =>
+        (b.score || 0) -
+        (a.score || 0)
+      );
+
+
+      $("playerCount")
+      .textContent =
+      list.length;
+
+
+      $("hostPlayers")
+      .innerHTML =
+      list.map(
+        player => `
+
+          <div class="player">
+
+            <b>
+              ${escapeHTML(
+                player.nick ||
+                "Player"
+              )}
+            </b>
+
+            <br>
+
+            <span class="muted">
+
+              ${
+                player.ready
+                ? "🟢 READY"
+                : "🟡 WAITING"
+              }
+
+            </span>
+
+            <br>
+
+            <span class="score">
+
+              ${player.score || 0}
+
+            </span>
+
+          </div>
+
+        `
+      ).join("");
+
+
+      $("hostBoard")
+      .innerHTML =
+      list.map(
+        (player,index) => `
+
+          <div>
+
+            <span>
+
+              #${index+1}
+              ${escapeHTML(
+                player.nick ||
+                "Player"
+              )}
+
+            </span>
+
+            <b>
+              ${player.score || 0}
+            </b>
+
+          </div>
+
+        `
+      ).join("")
+      ||
+
+      `
+
+        <div>
+
+          <span>No players yet</span>
+
+          <b>0</b>
+
+        </div>
+
+      `;
+
+
+      renderGame(data);
+
+    }
+
+  );
+
+}
+
+
+
+/* ============================================
+   START GAME
+   ============================================ */
+
+window.startGame = async function(){
+
+  if(!room){
+
+    alert(
+      "Create the room first."
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+    const now =
+    Date.now();
+
+
+    await update(
+
+      ref(
+        db,
+        "moveGrooveRooms/" +
+        room
+      ),
+
+      {
+
+        phase:
+        "playing",
+
+        startAt:
+        now,
+
+        endAt:
+        now + 180000,
+
+        action:
+        0
+
+      }
+
+    );
+
+  }
+
+  catch(error){
+
+    alert(
+      "START GAME ERROR:\n\n" +
+      error.message
+    );
+
+  }
+
+};
+
+
+
+/* ============================================
+   RESET
+   ============================================ */
+
+window.resetRoom = async function(){
+
+  if(!room){
+
+    return;
+
+  }
+
+
+  await set(
+
+    ref(
+      db,
+      "moveGrooveRooms/" +
+      room
+    ),
+
+    {
+
+      hostUid:
+      uid,
+
+      phase:
+      "waiting",
+
+      action:
+      -1,
+
+      startAt:
+      0,
+
+      endAt:
+      0,
+
+      players:
+      {}
+
+    }
+
+  );
+
+
+  $("hostTimer")
+  .textContent =
+  "03:00";
+
+
+  $("hostCommand")
+  .textContent =
+  "WAITING";
+
+
+  $("hostRound")
+  .textContent =
+  "Waiting for players…";
+
+};
+
+
+
+/* ============================================
+   GAME DISPLAY
+   ============================================ */
+
+function renderGame(data){
+
+  const playing =
+  data.phase === "playing";
+
+
+  const ended =
+  data.phase === "ended";
+
+
+  if(playing){
+
+    const action =
+    Number(data.action || 0);
+
+
+    const command =
+    moves[
+      action %
+      moves.length
+    ];
+
+
+    $("hostCommand")
+    .textContent =
+    command;
+
+
+    $("playerCommand")
+    .textContent =
+    command;
+
+
+    if(isHost){
+
+      runHostClock(data);
+
+    }
+    else{
+
+      runPlayerClock(data);
+
+    }
+
+  }
+
+  else if(ended){
+
+    $("hostCommand")
+    .textContent =
+    "🏆 RESULTS";
+
+
+    $("playerCommand")
+    .textContent =
+    "🏆 FINISHED";
+
+
+    $("hostTimer")
+    .textContent =
+    "00:00";
+
+
+    $("playerTimer")
+    .textContent =
+    "00:00";
+
+  }
+
+  else{
+
+    $("hostCommand")
+    .textContent =
+    "WAITING";
+
+
+    $("playerCommand")
+    .textContent =
+    "WAITING";
+
+  }
+
+}
+
+
+
+/* ============================================
+   HOST CLOCK
+   ============================================ */
+
+function runHostClock(data){
+
+  clearInterval(gameInterval);
+
+
+  gameInterval =
+  setInterval(
+    async () => {
+
+      const left =
+      Math.max(
+        0,
+        data.endAt -
+        Date.now()
+      );
+
+
+      $("hostTimer")
+      .textContent =
+      formatTime(left);
+
+
+      $("hostRound")
+      .textContent =
+      "MOVE " +
+      ((data.action || 0)+1) +
+      " • " +
+      Math.ceil(
+        left / 1000
+      ) +
+      "s left";
+
+
+      if(left <= 0){
+
+        clearInterval(
+          gameInterval
+        );
+
+
+        await update(
+
+          ref(
+            db,
+            "moveGrooveRooms/" +
+            room
+          ),
+
+          {
+
+            phase:
+            "ended",
+
+            action:
+            -1
+
+          }
+
+        );
+
+
+        return;
+
+      }
+
+
+      /*
+       * New movement every
+       * 7.5 seconds.
+       */
+
+      const elapsed =
+      Date.now() -
+      data.startAt;
+
+
+      const newAction =
+      Math.floor(
+        elapsed / 7500
+      );
+
+
+      if(
+        newAction !==
+        Number(data.action) &&
+        newAction < 24
+      ){
+
+        await update(
+
+          ref(
+            db,
+            "moveGrooveRooms/" +
+            room
+          ),
+
+          {
+
+            action:
+            newAction
+
+          }
+
+        );
+
+      }
+
+    },
+
+    250
+
+  );
+
+}
+
+
+
+/* ============================================
+   PLAYER CLOCK
+   ============================================ */
+
+function runPlayerClock(data){
+
+  clearInterval(gameInterval);
+
+
+  gameInterval =
+  setInterval(
+
+    () => {
+
+      const left =
+      Math.max(
+        0,
+        data.endAt -
+        Date.now()
+      );
+
+
+      $("playerTimer")
+      .textContent =
+      formatTime(left);
+
+
+      if(left <= 0){
+
+        clearInterval(
+          gameInterval
+        );
+
+      }
+
+    },
+
+    250
+
+  );
+
+}
+
+
+
+/* ============================================
+   JOIN ROOM
+   ============================================ */
+
+window.joinGame = async function(){
+
+  try{
+
+    room =
+    (
+      $("joinRoom").value ||
+      params.get("room") ||
+      ""
+    )
+    .trim()
+    .toUpperCase();
+
+
+    const nick =
+    (
+      $("nick").value ||
+      "Player"
+    ).trim();
+
+
+    if(!room){
+
+      alert(
+        "Enter the Room Code."
+      );
+
+      return;
+
+    }
+
+
+    const playerRef =
+    ref(
+
+      db,
+
+      "moveGrooveRooms/" +
+      room +
+      "/players/" +
+      uid
+
+    );
+
+
+    await set(
+
+      playerRef,
+
+      {
+
+        nick:
+        nick,
+
+        ready:
+        false,
+
+        score:
+        0,
+
+        online:
+        true
+
+      }
+
+    );
+
+
+    onDisconnect(
+      playerRef
+    )
+    .update({
+      online:false
+    });
+
+
+    isHost = false;
+
+
+    listenPlayer();
+
+
+    $("playerStatus")
+    .textContent =
+    "✅ Joined " +
+    room +
+    " as " +
+    nick;
+
+
+    $("readyBtn")
+    .disabled =
+    false;
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+
+    $("playerStatus")
+    .textContent =
+    "❌ ERROR: " +
+    error.message;
+
+
+    alert(
+      "JOIN ROOM ERROR:\n\n" +
+      error.message
+    );
+
+  }
+
+};
+
+
+
+/* ============================================
+   PLAYER LISTENER
+   ============================================ */
+
+function listenPlayer(){
+
+  onValue(
+
+    ref(
+      db,
+      "moveGrooveRooms/" +
+      room
+    ),
+
+    snapshot => {
+
+      const data =
+      snapshot.val();
+
+
+      if(!data){
+
+        $("playerStatus")
+        .textContent =
+        "❌ Room not found.";
+
+        return;
+
+      }
+
+
+      renderGame(data);
+
+
+      const me =
+      (
+        data.players ||
+        {}
+      )[uid];
+
+
+      if(me){
+
+        $("myScore")
+        .textContent =
+        me.score || 0;
+
+
+        if(data.phase === "playing"){
+
+          $("playerStatus")
+          .textContent =
+          "🟢 GAME ON! Follow the movement.";
+
+        }
+
+        else if(
+          data.phase === "ended"
+        ){
+
+          $("playerStatus")
+          .textContent =
+          "🏆 Game finished!";
+
+        }
+
+        else{
+
+          $("playerStatus")
+          .textContent =
+          me.ready
+          ? "🟢 READY — Waiting for Host"
+          : "🟡 Joined — Press READY";
+
+        }
+
+      }
+
+    }
+
+  );
+
+}
+
+
+
+/* ============================================
+   READY
+   ============================================ */
+
+window.setReady = async function(){
+
+  if(!room || !uid){
+
+    return;
+
+  }
+
+
+  await update(
+
+    ref(
+
+      db,
+
+      "moveGrooveRooms/" +
+      room +
+      "/players/" +
+      uid
+
+    ),
+
+    {
+
+      ready:
+      true
+
+    }
+
+  );
+
+
+  $("readyBtn")
+  .textContent =
+  "🟢 READY";
+
+};
+
+
+
+/* ============================================
+   MOTION SENSOR
+   ============================================ */
+
+window.enableMotion = async function(){
+
+  try{
+
+    /*
+     * iPhone/iPad permission
+     */
+
+    if(
+      typeof DeviceMotionEvent !==
+      "undefined" &&
+
+      typeof DeviceMotionEvent
+      .requestPermission ===
+      "function"
+    ){
+
+      const permission =
+      await DeviceMotionEvent
+      .requestPermission();
+
+
+      if(
+        permission !==
+        "granted"
+      ){
+
+        alert(
+          "Motion permission was not granted."
+        );
+
+        return;
+
+      }
+
+    }
+
+
+    motionEnabled =
+    true;
+
+
+    $("motionStatus")
+    .textContent =
+    "🟢 Motion sensor enabled";
+
+
+    window.addEventListener(
+
+      "devicemotion",
+
+      detectMotion,
+
+      {
+        passive:true
+      }
+
+    );
+
+  }
+
+  catch(error){
+
+    alert(
+      "MOTION ERROR:\n\n" +
+      error.message
+    );
+
+  }
+
+};
+
+
+
+/* ============================================
+   MOTION DETECTION
+   ============================================ */
+
+function detectMotion(event){
+
+  if(
+    !motionEnabled ||
+    !room
+  ){
+
+    return;
+
+  }
+
+
+  const now =
+  Date.now();
+
+
+  if(
+    now -
+    lastMotionTime <
+    500
+  ){
+
+    return;
+
+  }
+
+
+  const a =
+  event.accelerationIncludingGravity ||
+  event.acceleration;
+
+
+  if(!a){
+
+    return;
+
+  }
+
+
+  const x =
+  Number(a.x || 0);
+
+
+  const y =
+  Number(a.y || 0);
+
+
+  const z =
+  Number(a.z || 0);
+
+
+  const magnitude =
+  Math.sqrt(
+    x*x +
+    y*y +
+    z*z
+  );
+
+
+  const movementDetected =
+    magnitude > 17 ||
+    Math.abs(x) > 8 ||
+    Math.abs(y) > 8;
+
+
+  if(
+    movementDetected
+  ){
+
+    lastMotionTime =
+    now;
+
+
+    submitMovement();
+
+  }
+
+}
+
+
+
+/* ============================================
+   SUBMIT MOVEMENT
+   ============================================ */
+
+async function submitMovement(){
+
+  if(!room){
+
+    return;
+
+  }
+
+
+  const roomRef =
+  ref(
+    db,
+    "moveGrooveRooms/" +
+    room
+  );
+
+
+  onValue(
+
+    roomRef,
+
+    async snapshot => {
+
+      const data =
+      snapshot.val();
+
+
+      if(
+        !data ||
+        data.phase !==
+        "playing"
+      ){
+
+        return;
+
+      }
+
+
+      const action =
+      Number(
+        data.action || 0
+      );
+
+
+      if(
+        action ===
+        lastActionHandled
+      ){
+
+        return;
+
+      }
+
+
+      lastActionHandled =
+      action;
+
+
+      const player =
+      (
+        data.players ||
+        {}
+      )[uid];
+
+
+      if(!player){
+
+        return;
+
+      }
+
+
+      const currentScore =
+      Number(
+        player.score || 0
+      );
+
+
+      const points =
+      100;
+
+
+      await update(
+
+        ref(
+
+          db,
+
+          "moveGrooveRooms/" +
+          room +
+          "/players/" +
+          uid
+
+        ),
+
+        {
+
+          score:
+          currentScore +
+          points,
+
+          lastAction:
+          action,
+
+          lastHit:
+          Date.now()
+
+        }
+
+      );
+
+    },
+
+    {
+      onlyOnce:true
+    }
+
+  );
+
+}
+
+
+
+/* ============================================
+   FORMAT TIME
+   ============================================ */
+
+function formatTime(ms){
+
+  const totalSeconds =
+  Math.ceil(
+    ms / 1000
+  );
+
+
+  const minutes =
+  Math.floor(
+    totalSeconds / 60
+  );
+
+
+  const seconds =
+  totalSeconds % 60;
+
+
+  return (
+    String(minutes)
+    .padStart(2,"0") +
+    ":" +
+    String(seconds)
+    .padStart(2,"0")
+  );
+
+}
+
+
+
+/* ============================================
+   ESCAPE HTML
+   ============================================ */
+
+function escapeHTML(value){
+
+  return String(value)
+  .replace(
+    /[&<>"']/g,
+
+    char => ({
+
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#039;"
+
+    }[char])
+
+  );
+
+}
+
+
+
+/* ============================================
+   AUTOMATIC PLAYER MODE
+   ============================================ */
+
+if(
+  params.get("mode") ===
+  "player"
+){
+
+  showMode("player");
+
+
+  if(
+    params.get("room")
+  ){
+
+    $("joinRoom")
+    .value =
+    params
+    .get("room")
+    .toUpperCase();
+
+  }
+
+}
+
+else{
+
+  showMode("host");
+
+}
+
 </script>
+
 </body>
 </html>
